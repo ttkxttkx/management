@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须和 DeptMapper 接口的全类名完全一致，大小写不能错 -->
+<mapper namespace="com.li.emp.mapper.DeptMapper">
+    <!-- id 必须和 DeptMapper 接口的方法名 findAll 完全一致 -->
+    <!-- resultType 必须和 Dept 类的全类名完全一致 -->
+    <select id="findAll" resultType="com.li.emp.pojo.Dept">
+        SELECT * FROM dept
+    </select>
+
+
+    <select id="delete" >
+        delete  FROM dept WHERE id = #{id}
+    </select>
+
+
+    <insert id="insert">
+        INSERT INTO dept(name, create_time, update_time)
+        VALUES (#{name}, #{createTime}, #{updateTime})
+    </insert>
+
+
+    <select id="getById" resultType="com.li.emp.pojo.Dept">
+        SELECT * FROM dept WHERE id = #{id}
+    </select>
+
+
+    <update id="update">
+        UPDATE dept
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

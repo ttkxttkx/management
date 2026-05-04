@@ -1,0 +1,32 @@
+# 服务器端口配置
+server:
+  port: 8080
+
+# Spring 应用配置
+spring:
+  application:
+    name: emp
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/tlias?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ↓↓↓ 改为你自己的 MySQL 用户名和密码 ↓↓↓
+    username: your_username
+    password: your_password
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 11MB
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 日志配置
+logging:
+  level:
+    com.li.emp: info
+    org.apache.ibatis: info

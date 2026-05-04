@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 必须和 EmpMapper 接口的全类名完全一致，大小写不能错 -->
+<mapper namespace="com.li.emp.mapper.EmpMapper">
+
+    <!-- 分页查询员工信息 -->
+    <select id="page" resultType="com.li.emp.pojo.EmpEntity">
+        SELECT * FROM emp
+        <where>
+            <if test="empPageQueryDTO.name != null and empPageQueryDTO.name != ''">
+                AND name LIKE CONCAT('%', #{empPageQueryDTO.name}, '%')
+            </if>
+            <if test="empPageQueryDTO.gender != null">
+                AND gender = #{empPageQueryDTO.gender}
+            </if>
+            <if test="empPageQueryDTO.begin != null">
+                AND entry_date &gt;= #{empPageQueryDTO.begin}
+            </if>
+            <if test="empPageQueryDTO.end != null">
+                AND entry_date &lt;= #{empPageQueryDTO.end}
+            </if>
+        </where>
+        ORDER BY entry_date DESC
+    </select>
+
+    <!-- 统计符合条件的员工总数 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM emp
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                AND gender = #{gender}
+            </if>
+            <if test="begin != null">
+                AND entry_date &gt;= #{begin}
+            </if>
+            <if test="end != null">
+                AND entry_date &lt;= #{end}
+            </if>
+        </where>
+    </select>
+
+</mapper>
